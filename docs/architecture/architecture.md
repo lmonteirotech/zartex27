@@ -396,7 +396,7 @@ The core has four layers. `chunk.rs` and `binio.rs` read and write the CHNK cont
 - The origin of `chunk.rs`, `binio.rs` and `plmodel.rs` is not stated in their headers (see each entry).
 - `mission.rs` does not state its origin in its header.
 - The `CONTRIBUTING.md` says every file header states its origin. Most headers in this crate do not, so the origin labels above are based on the header wording where it exists.
-- `creators.rs` names `tools/tools_gen_creators.py` in its header; the repository has `tools/tools_tools/tools_gen_creators.py`. Not checked further.
+- `creators.rs` names `tools/tools_gen_creators.py` in its header; the repository has `tools/tools_gen_creators.py`. Not checked further.
 
 
 ---
@@ -1366,13 +1366,13 @@ The Cargo build output folder. It is ignored by `.gitignore`. Not part of the so
 
 ### `CHANGELOG.md`
 
-Release notes. It has one entry, `0.1.0 - first release`, and lists the features of that release. It states that releases are made by hand from a "Release" workflow and not by pull requests or merges. No workflow file exists in this tree (see `.github/workflows` below), so that statement cannot be checked here.
+Release notes. It has one entry, `0.1.0 - first release`, and lists the features of that release. It states that releases are made by hand from the "Release" workflow (`.github/workflows/release.yml`, described below) and not by pull requests or merges.
 
 ---
 
 ### `CONTRIBUTING.md`
 
-The contributor guide. It states the rule that a contributor must understand every change, and the rule that a person must review what the code does. It gives the build and test commands `cargo build --release` and `cargo test --release`, and the environment variables for tests that need a game installation: `DRIV3R_DIR` (the folder of the first game) and `PL_DIR` (the folder of Parallel Lines). It says the tests that need no game (sample scripts, golden outputs, manual checks) always run. It refers to `docs/architecture/` and `docs/manual-source/`; neither folder is in this repository.
+The contributor guide. It states the rule that a contributor must understand every change, and the rule that a person must review what the code does. It gives the build and test commands `cargo build --release` and `cargo test --release`, and the environment variables for tests that need a game installation: `DRIV3R_DIR` (the folder of the first game) and `PL_DIR` (the folder of Parallel Lines). It says the tests that need no game (sample scripts, golden outputs, manual checks) always run. It refers to `docs/architecture/` and `docs/manual-source/`; both folders exist.
 
 ---
 
@@ -1383,28 +1383,28 @@ The reference outputs of the original compiler and generated test cases. They ar
 | Entry | Content |
 |---|---|
 | `api_signatures.json` (46 KB) | Output of `tools_extract_api.py`: one record per public method of the three C# classes of the Zartex 2 mission script (`LuaMissionScript`, `LuaMissionScriptDPL`, `LuaMissionPackage`): class, line, return type, name, modifiers, parameters. |
-| `api_methods.json` (324 KB) | Output of `tools_methods.py`: the same records plus `body` (the text of the method, comments removed) and `end` (last line). The `kind` value (node, actor, other) that `tools_methods.py` computes is not in the file, because the file is written before that value is set. Read by `tools_show_method.py`, `tools_tools/tools_gen_creators.py`, `tools_gen_api.py` and `tools_coverage.py`. |
+| `api_methods.json` (324 KB) | Output of `tools_methods.py`: the same records plus `body` (the text of the method, comments removed) and `end` (last line). The `kind` value (node, actor, other) that `tools_methods.py` computes is not in the file, because the file is written before that value is set. Read by `tools_show_method.py`, `tools_gen_creators.py`, `tools_gen_api.py` and `tools_coverage.py`. |
 | `cov/lua/` (836 files) | Generated Lua test scripts for the coverage tool. For each of 139 method overloads, six variants: `min`, `full`, `nilstr`, `nilact`, `edge`, `edgemin` (file name `<Method>_<line>_<variant>.lua`). Plus two package cases (`dpl_package_basic`, `dpl_package_two`). The variants differ in the arguments: all optional arguments, nil for strings or actors and nodes, edge values for numbers. |
 | `cov/or/` (745 files: 607 `.mpc`, 138 `.sp`) | Output of the original compiler for each case in `cov/lua/` where it succeeded. Written by `tools_coverage.py`. Read by `zartex-core/tests/coverage_parity.rs`. |
 | `cov/rs/` (745 files) | Output of `zartex-luac` for the same cases. Written by `tools_coverage.py`. Compared with `cov/or/` byte for byte. |
 | `golden/` (12 scripts and `README.md`) | Compiled outputs of the original compiler for 12 sample scripts: 7 `.mpc` files (`areatest`, `checkpointRace`, `deathmatch`, `presidentsrun`, `scriptedTraffic`, `survival`, `template`) and 5 `.sp` files for Parallel Lines (`DPL_ambulance`, `DPL_ambulance_init`, `DPL_template`, `DPL_vehicle`, `DPLtest`). `README.md` says how they were made: with the original compiler's command line, and for the `.sp` files with a small program that repeats the editor's steps. |
-| `scripts_fixed/` (2 files) | Patched copies of `areatest.lua` and `checkpointRace.lua`. According to `golden/README.md`, the originals were out of date (missing the `skin` argument of `CreateCharacter` and `CreateCharacterInVehicle`); `SKIN_TANNER` was added. |
+| `scripts_fixed/` (12 files) | The Lua scripts the golden outputs were made from, read by `zartex-core/tests/lua_parity.rs`: the ten stock scripts of Zartex 2 (`deathmatch`, `presidentsrun`, `scriptedTraffic`, `survival`, `template`, `DPL_ambulance`, `DPL_ambulance_init`, `DPL_template`, `DPL_vehicle`, `DPLtest`) and patched copies of `areatest.lua` and `checkpointRace.lua`. According to `golden/README.md`, the originals of those two were out of date (missing the `skin` argument of `CreateCharacter` and `CreateCharacterInVehicle`); `SKIN_TANNER` was added. |
 
 The original compiler (LuaC, built from the Zartex 2 sources) is not part of this repository. `tools/tools_coverage.py` expects it in the environment variable `LUAC_ORACLE`.
 
 Readers of this folder (tests and tools):
 - `zartex-core/tests/coverage_parity.rs`: `cov/or/`, against Rust output.
 - `zartex-core/tests/golden.rs`, `dpl.rs`, `model.rs`, `transplant.rs`, `readable.rs`, `lua_export.rs`: `golden/`.
-- `zartex-core/tests/lua_parity.rs`: `golden/` and `scripts_fixed/`.
+- `zartex-core/tests/lua_parity.rs`: `golden/` and `scripts_fixed/` (all the scripts are read from `scripts_fixed/`).
 - `zartex-core/tests/snippet.rs`: `golden/survival.mpc`.
 - `zartex-app/src/creator_tools.rs`: `golden/survival.mpc`.
 - `tools/tools_coverage.py` and the tools that read `api_methods.json` (listed under `tools/`).
 
 ---
 
-### `tools/` (folder, 6 Python files)
+### `tools/` (folder, 8 Python files)
 
-The generators of the Rust code and the coverage tool. They read the C# source of the earlier tool (Zartex 2) and the JSON files in `oracle/`. They are run by hand; there is no workflow that runs them.
+The generators of the Rust code and the coverage tool. They read the C# source of the earlier tool (Zartex 2) and the JSON files in `oracle/`. They are run by hand; there is no workflow that runs them. Two more files are helpers: `commentutil.py` (blanks the comments of C# text; imported by `tools_extract_api.py` and `tools_methods.py`) and `md_to_docx.py` (turns a Markdown file such as `architecture.md` into a Word file, from which the PDF is exported).
 
 Common points:
 - `REPO` is the parent folder of `tools/` (the repository root).
@@ -1416,25 +1416,52 @@ Common points:
 | `tools_extract_api.py` | `ZARTEX2_SRC\Zartex2\MissionScript\LuaMissionScript.cs` | `api_signatures.json` (cwd-relative; the file is expected in `oracle/`). Prints the count of methods, and overloads. Finds the public methods of the three mission-script classes by regular expression. |
 | `tools_methods.py` | `oracle/api_signatures.json` (cwd-relative), the same C# file | `oracle/api_methods.json` (cwd-relative). Adds the method body (by matching braces, comments removed). Prints the count of each kind (node, actor, other) and the names of the "other" methods. The kind is not written to the file. |
 | `tools_show_method.py` | `oracle/api_methods.json` (under `REPO`) | Nothing. Prints every overload of a method, given its name and optionally its class (usage in the docstring: `python tools_show_method.py Name [Class]`). |
-| `tools_tools/tools_gen_creators.py` | `oracle/api_methods.json` (under `REPO`) | `..\zartex-core\src\creators.rs` (relative to the current directory). For every function that returns a node or an actor, takes the overload with the most parameters; writes a table of creators with parameter type, name and default value. The generated file's header says it was made by this script. |
+| `tools_gen_creators.py` | `oracle/api_methods.json` (under `REPO`) | `..\zartex-core\src\creators.rs` (relative to the current directory). For every function that returns a node or an actor, takes the overload with the most parameters; writes a table of creators with parameter type, name and default value. The generated file's header says it was made by this script. |
 | `tools_gen_api.py` | `oracle/api_methods.json` (under `REPO`). Also the C# files `LuaMissionScript.cs`, `Objects\Types\Collectable.cs` and `Logic\NodeTypes.cs` under `ZARTEX2_SRC` | `zartex-core/src/api_gen.rs` (the Rust functions for node creators and simple delegations); `tools/gen_report.txt` (what could not be translated, to be ported by hand; this file is not in the repository); `zartex-core/src/api_consts.rs` (constants, from `gen_consts`); `zartex-core/src/nodenames.rs` (node names, from `gen_nodenames`). `gen_consts()` and `gen_nodenames()` are called at module level, so they run with the script. |
 | `tools_coverage.py` | `oracle/api_methods.json` (under `REPO`); the original compiler named by `LUAC_ORACLE` (default `LuaC.exe`); `target/release/zartex-luac.exe` | Deletes and recreates `oracle/cov/` (`lua/`, `or/`, `rs/`); writes one Lua script per case, compiles each with the original compiler and with `zartex-luac`; writes `coverage_mismatches.json` at the repository root; prints a summary. Cases that only one side accepts, or whose output bytes differ, are listed as mismatches. |
 
 Notes:
-- `tools_tools/tools_gen_creators.py` and `tools_gen_api.py` both write Rust files into `zartex-core/src/`. Running them replaces those files.
+- `tools_gen_creators.py` and `tools_gen_api.py` both write Rust files into `zartex-core/src/`. Running them replaces those files.
 - Nothing in the repository runs these tools automatically.
 
 ---
 
-### `docs/` (folder, 2 files)
+### `docs/` (folder)
 
 - `docs/tutorial_mission.lua` (3,825 bytes): a commented Lua mission script. It is a tutorial: the player starts on foot at point A, gets into a car and drives to point B, in the city of Miami. It uses the mission API (`MISSION.*`) and the city and mood settings (`Level = "Miami_Day"`, `MoodId = 33`).
 - `docs/tutorial_mission.mpc` (10,240 bytes): a binary file. Its first bytes are the `CHNK` container magic, so it is a compiled mission in the same container format that `chnk.rs` reads. The code does not say which script it was compiled from. Not clear from the code.
 
-No file in the repository's `.rs`, `.py` or `.md` files names these two files. `CONTRIBUTING.md` refers to `docs/architecture/` and `docs/manual-source/`; neither folder is in this repository.
+The other entries of the folder are described here: `Zartex27_Manual.pdf` (the user manual, as a PDF), `manual-source/` (`manual.md`, the editable text of the manual, and its `images/`; the test `zartex-core/tests/manual.rs` checks it against the program), `architecture/` (this document: `architecture.md` and its PDF), and `images/` (the logo and the thumbnails of the README gallery). `CONTRIBUTING.md` refers to `docs/architecture/` and `docs/manual-source/`; both folders exist.
 
 ---
 
-### `.github/workflows/` (folder, empty)
+### `.github/workflows/` (folder, 2 files)
 
-The folder exists and is empty: there is no workflow file in this tree. `CHANGELOG.md` says releases come from a "Release" workflow; that workflow is not in the repository, so the release process cannot be read from this tree.
+Two GitHub Actions workflows. The program is supported on Windows 10 and Windows 11, 64-bit (x86_64) only, and both workflows build for `x86_64-pc-windows-msvc` on a `windows-latest` runner with the stable Rust toolchain.
+
+- `ci.yml` ("CI"): runs on every push to `main` and on every pull request. It builds with `cargo build --release --locked` and tests with `cargo test --release --locked`. It never publishes anything. The tests that need a game installation are skipped there, because `DRIV3R_DIR` and `PL_DIR` are not set.
+- `release.yml` ("Release"): runs only when started by hand (`workflow_dispatch`) with a `version` (major.minor.patch) and an optional pre-release flag. It checks that the version matches `zartex-app/Cargo.toml` and that the tag does not exist, runs the tests, builds, packs `zartex-app.exe`, `zartex-luac.exe`, `README.md`, `LICENSE`, `CHANGELOG.md`, the manual PDF and the tutorial script into `Zartex27-<version>-windows-x64.zip`, takes the release notes from the matching section of `CHANGELOG.md`, and creates the tag and the GitHub release with `gh release create`.
+
+---
+
+### `.cargo/config.toml`
+
+Cargo configuration. For the target `x86_64-pc-windows-msvc` it sets `rustflags = ["-C", "target-feature=+crt-static"]`, which links the C runtime into the programs so that they run on a clean Windows 10 or 11 without the Visual C++ Redistributable.
+
+---
+
+### `.gitattributes`
+
+Git settings: `* text=auto`, and the file types `*.mpc`, `*.sp`, `*.png`, `*.ico`, `*.pdf` and `*.docx` are marked binary so that line-ending conversion never touches them.
+
+---
+
+### `README.md`
+
+The front page of the repository: logo, badges, what the program is, features, a screenshot gallery, supported systems, how to build, the command line, links to the documents, a diagram of the code structure, where the code comes from, credits and the license.
+
+---
+
+### `LICENSE`
+
+The text of the GNU General Public License, version 3. The project is released under version 3 or (at your option) any later version.
