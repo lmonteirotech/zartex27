@@ -56,6 +56,29 @@ It is a Rust rewrite of the earlier tools **Zartex** and **Zartex 2**. Part of i
 **Interface**
 - Windows 11 look, light and dark themes, accent colour (or the Windows accent colour).
 
+## Screenshots
+
+Click a picture to see it in full size. They are the same pictures as in the [manual](docs/Zartex27_Manual.pdf).
+
+<table>
+<tr>
+<td align="center" valign="top" width="50%"><a href="docs/manual-source/images/90_logic_graph.png"><img src="docs/images/thumbs/90_logic_graph.jpg" alt="The logic graph of a mission, with the nodes and the wires between them."></a><br><sub>The logic graph of a mission, with the nodes and the wires between them.</sub></td>
+<td align="center" valign="top" width="50%"><a href="docs/manual-source/images/91_city3d.png"><img src="docs/images/thumbs/91_city3d.jpg" alt="City 3D: the textured city around the mission, with its actors, objects and cameras."></a><br><sub>City 3D: the textured city around the mission, with its actors, objects and cameras.</sub></td>
+</tr>
+<tr>
+<td align="center" valign="top" width="50%"><a href="docs/manual-source/images/92_cameras.png"><img src="docs/images/thumbs/92_cameras.jpg" alt="The cutscene camera shots on a timeline, with the camera preview in the corner."></a><br><sub>The cutscene camera shots on a timeline, with the camera preview in the corner.</sub></td>
+<td align="center" valign="top" width="50%"><a href="docs/manual-source/images/93_lua_tab.png"><img src="docs/images/thumbs/93_lua_tab.jpg" alt="The Lua tab, with the readable Lua export of a mission."></a><br><sub>The Lua tab, with the readable Lua export of a mission.</sub></td>
+</tr>
+<tr>
+<td align="center" valign="top" width="50%"><a href="docs/manual-source/images/94_assets.png"><img src="docs/images/thumbs/94_assets.jpg" alt="The Assets tab, with a vehicle preview and one-click creation."></a><br><sub>The Assets tab, with a vehicle preview and one-click creation.</sub></td>
+<td align="center" valign="top" width="50%"><a href="docs/manual-source/images/80_about.png"><img src="docs/images/thumbs/80_about.jpg" alt="The About window."></a><br><sub>The About window.</sub></td>
+</tr>
+<tr>
+<td align="center" valign="top" width="50%"><a href="docs/manual-source/images/70_pl_city.png"><img src="docs/images/thumbs/70_pl_city.jpg" alt="Driver: Parallel Lines: the whole New York map in City 3D."></a><br><sub>Driver: Parallel Lines: the whole New York map in City 3D.</sub></td>
+<td align="center" valign="top" width="50%"><a href="docs/manual-source/images/73_pl_midtown.png"><img src="docs/images/thumbs/73_pl_midtown.jpg" alt="Driver: Parallel Lines: a close-up of Midtown, with props."></a><br><sub>Driver: Parallel Lines: a close-up of Midtown, with props.</sub></td>
+</tr>
+</table>
+
 ## Supported systems
 
 | System | Status |
