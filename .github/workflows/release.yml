@@ -77,5 +77,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $v = "${{ inputs.version }}"
-          $pre = if ("${{ inputs.prerelease }}" -eq "true") { "--prerelease" } else { "" }
-          gh release create "v$v" "dist/Zartex27-$v-windows-x64.zip" --title "Zartex'27 $v" --notes-file release-notes.md --target "${{ github.sha }}" $pre
+          # build the argument list: an empty string would be passed to gh as an (empty) file name
+          $ghargs = @("release", "create", "v$v", "dist/Zartex27-$v-windows-x64.zip", "--title", "Zartex'27 $v", "--notes-file", "release-notes.md", "--target", "${{ github.sha }}")
+          if ("${{ inputs.prerelease }}" -eq "true") { $ghargs += "--prerelease" }
+          gh @ghargs
+          if ($LASTEXITCODE -ne 0) { throw "gh release create failed with exit code $LASTEXITCODE" }
