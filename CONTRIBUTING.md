@@ -40,6 +40,10 @@ Some tests need a game installation. They are skipped unless you point them at o
 
 The tests that do not need a game (the sample scripts, the golden outputs, the manual checks) always run.
 
+## Game files and trademarks
+
+Never add files from the games to this repository: no models, textures, sounds, missions or any other data taken from an installation, not even as test data. Tests must use files made for this project, or skip themselves when a game is not installed. Driv3r (Driver 3) and Driver: Parallel Lines, their names, logos, graphics, sounds and game files, are trademarks and copyrighted works of their respective owners. They are named in this project only to say which games the tool works with. Zartex'27 contains no file from the games, and it is not affiliated with, endorsed by or sponsored by their owners.
+
 ## Making a change
 
 1. Open an issue first for anything big, so that we agree on the direction.

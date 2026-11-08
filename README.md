@@ -179,4 +179,6 @@ Zartex'27 is free software, released under the **GNU General Public License, ver
 
 **The software and the source code are provided without any warranty.**
 
+**Trademarks and copyright.** Driv3r (Driver 3) and Driver: Parallel Lines, their names, logos, graphics, sounds and game files, are trademarks and copyrighted works of their respective owners. They are named in this project only to say which games the tool works with. Zartex'27 contains no file from the games, and it is not affiliated with, endorsed by or sponsored by their owners.
+
 See [`LICENSE`](LICENSE).

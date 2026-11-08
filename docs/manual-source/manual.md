@@ -30,6 +30,8 @@ This manual is for a modder who knows Driv3r or Driver: Parallel Lines and has n
 - Zartex 2 (Lua mission API, Parallel Lines support): BuilderDemo7.
 - Zartex, DSCript and the Driver Tools: Fireboyd78/Mark Ludwig/CarLuver69.
 
+**Trademarks and copyright.** Driv3r (Driver 3) and Driver: Parallel Lines, their names, logos, graphics, sounds and game files, are trademarks and copyrighted works of their respective owners. They are named in this project only to say which games the tool works with. Zartex'27 contains no file from the games, and it is not affiliated with, endorsed by or sponsored by their owners.
+
 # 1 First start
 
 ## 1.1 Set the game folders
