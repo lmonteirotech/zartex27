@@ -1,0 +1,7 @@
+local P = INITMISSION.CreateCharacter(1,2,3,0, 29, 1.0, 0.0, nil, 0, 0, true, 65537)
+local V = INITMISSION.CreateVehicle(4,5,6,90, 36, 0)
+local S = INITMISSION.LogicStart(0, "Start")
+local N = INITMISSION.SetTimer(1)
+local m = PACKAGE.CreateMission("M", 5, 1.5, 2.5, 3)
+PACKAGE.AddMission(m, 7)
+m.LogicStart(0, "s")

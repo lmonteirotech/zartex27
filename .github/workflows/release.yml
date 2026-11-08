@@ -1,0 +1,81 @@
+name: Release
+
+# Releases are made by hand: open the Actions tab, choose "Release", press "Run workflow" and type the version.
+# Nothing here runs on a pull request, a push or a merge.
+# Supported platform for now: Windows 10 and Windows 11, 64-bit (x86_64) only.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish, as major.minor.patch (for example 0.1.0). It must match the version in zartex-app/Cargo.toml."
+        required: true
+        type: string
+      prerelease:
+        description: "Mark the release as a pre-release"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish (Windows x64)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the version
+        shell: pwsh
+        run: |
+          $v = "${{ inputs.version }}"
+          if ($v -notmatch '^\d+\.\d+\.\d+$') { throw "The version must look like 0.1.0 (major.minor.patch), got '$v'." }
+          $app = (Select-String -Path zartex-app/Cargo.toml -Pattern '^version\s*=\s*"([^"]+)"' | Select-Object -First 1).Matches.Groups[1].Value
+          if ($app -ne $v) { throw "zartex-app/Cargo.toml says version $app, but you asked for $v. Change the version in the Cargo.toml files first." }
+          if (git tag --list "v$v") { throw "The tag v$v already exists." }
+
+      - name: Install the Rust toolchain (stable, x86_64-pc-windows-msvc)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Test
+        run: cargo test --release --locked --target x86_64-pc-windows-msvc
+
+      - name: Build
+        run: cargo build --release --locked --target x86_64-pc-windows-msvc
+
+      - name: Package
+        shell: pwsh
+        run: |
+          $v = "${{ inputs.version }}"
+          $name = "Zartex27-$v-windows-x64"
+          New-Item -ItemType Directory -Path "dist/$name" -Force | Out-Null
+          Copy-Item target/x86_64-pc-windows-msvc/release/zartex-app.exe "dist/$name/"
+          Copy-Item target/x86_64-pc-windows-msvc/release/zartex-luac.exe "dist/$name/"
+          Copy-Item README.md, LICENSE, CHANGELOG.md "dist/$name/"
+          if (Test-Path docs/Zartex27_Manual.pdf) { Copy-Item docs/Zartex27_Manual.pdf "dist/$name/" }
+          Copy-Item docs/tutorial_mission.lua "dist/$name/"
+          Compress-Archive -Path "dist/$name" -DestinationPath "dist/$name.zip"
+
+      - name: Release notes from the changelog
+        shell: pwsh
+        run: |
+          $v = "${{ inputs.version }}"
+          $text = Get-Content CHANGELOG.md -Raw
+          $m = [regex]::Match($text, "(?ms)^## $([regex]::Escape($v))\b.*?\r?\n(.*?)(?=^## |\z)")
+          if ($m.Success) { $m.Groups[1].Value.Trim() | Set-Content release-notes.md } else { "Release $v" | Set-Content release-notes.md }
+
+      - name: Create the tag and the GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $v = "${{ inputs.version }}"
+          $pre = if ("${{ inputs.prerelease }}" -eq "true") { "--prerelease" } else { "" }
+          gh release create "v$v" "dist/Zartex27-$v-windows-x64.zip" --title "Zartex'27 $v" --notes-file release-notes.md --target "${{ github.sha }}" $pre

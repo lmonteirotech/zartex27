@@ -1,0 +1,5 @@
+local P = MISSION.CreateCharacter(1,2,3,0, SKIN_TANNER, 1, "Player", -1,-1,1.0,0.0,0,1.0)
+local V = MISSION.CreateVehicle(4,5,6,90, 2, 0)
+local S = MISSION.LogicStart("Start")
+local N = MISSION.Timer(1)
+MISSION.toflag(2.7, -1, 300, 1e3)

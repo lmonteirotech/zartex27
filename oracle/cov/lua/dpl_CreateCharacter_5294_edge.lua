@@ -1,0 +1,5 @@
+local P = INITMISSION.CreateCharacter(1,2,3,0, 29, 1.0, 0.0, nil, 0, 0, true, 65537)
+local V = INITMISSION.CreateVehicle(4,5,6,90, 36, 0)
+local S = INITMISSION.LogicStart(0, "Start")
+local N = INITMISSION.SetTimer(1)
+INITMISSION.CreateCharacter(-0.5, 1e3, 0.1, 3.999, 0, 1e3, 0.1, V, 1e3, 0, true, -1, "x", 1e3, 0, 2.7)

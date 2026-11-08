@@ -1,0 +1,8 @@
+/target
+**/target
+*.bak
+Thumbs.db
+.DS_Store
+docs/*.docx
+docs/architecture/*.docx
+*.tmp

@@ -1,0 +1,8 @@
+[package]
+name = "formats"
+version = "0.1.0"
+edition = "2021"
+description = "Readers for the game data containers and models used by Zartex'27"
+license = "GPL-3.0-or-later"
+
+[dependencies]

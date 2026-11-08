@@ -1,0 +1,7 @@
+* text=auto
+*.mpc binary
+*.sp binary
+*.png binary
+*.ico binary
+*.pdf binary
+*.docx binary

@@ -1,0 +1,35 @@
+name: CI
+
+# Builds and tests on every push to main and on every pull request.
+# It never publishes anything: releases are made by hand with the "Release" workflow.
+# Supported platform for now: Windows 10 and Windows 11, 64-bit (x86_64) only.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    name: Windows x64 (Windows 10 / 11)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the Rust toolchain (stable, x86_64-pc-windows-msvc)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build
+        run: cargo build --release --locked --target x86_64-pc-windows-msvc
+
+      - name: Test
+        # Tests that need a game installation are skipped (DRIV3R_DIR and PL_DIR are not set here).
+        run: cargo test --release --locked --target x86_64-pc-windows-msvc

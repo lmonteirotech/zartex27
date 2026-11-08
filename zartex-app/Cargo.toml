@@ -1,0 +1,19 @@
+[package]
+name = "zartex-app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+eframe = "0.37.0"
+rfd = "0.17.2"
+image = { version = "0.25.10", default-features = false, features = ["png"] }
+zartex-core = { path = "../zartex-core" }
+glam = "0.30"
+wgpu = "30.0.1"
+pollster = "1.0.1"
+sysinfo = { version = "0.33", default-features = false, features = ["system"] }
+bytemuck = "1.25.2"
+formats = { path = "../crates/formats" }
+
+[build-dependencies]
+winresource = "0.1"

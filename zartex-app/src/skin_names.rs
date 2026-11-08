@@ -1,0 +1,50 @@
+//! Generated from the SKIN_* constants of the Lua API.
+//!
+//! This file is a generated table, not hand-written logic: one `(name, hash)` pair per skin, where the name is the
+//! constant's name (for example `SKIN_TANNER`) and the hash is the number the game uses for it.
+//! Used by: `assets` (`skin_name` looks a hash up here; the Assets tab shows the names).
+
+/// Every character skin of the Lua API: `(constant name, skin hash)`. Each row is one `SKIN_*` constant.
+pub const SKINS: &[(&str, u32)] = &[
+    ("SKIN_TANNER", 3121764705),
+    ("SKIN_JONES", 3844744938),
+    ("SKIN_LOMAZ", 1973162163),
+    ("SKIN_CALITA", 3705722754),
+    ("SKIN_BADHAND", 4113413947),
+    ("SKIN_JERICHO", 353874181),
+    ("SKIN_FABIENNE", 124696716),
+    ("SKIN_FAB_GOON1", 1746096550),
+    ("SKIN_FAB_GOON2", 4045013020),
+    ("SKIN_FAB_GOON3", 2250059914),
+    ("SKIN_BODYGUARD1", 423951844),
+    ("SKIN_BODYGUARD2", 2152574046),
+    ("SKIN_BACCUS", 2833961390),
+    ("SKIN_TICO", 297950421),
+    ("SKIN_SB_GOON1", 2659789996),
+    ("SKIN_SB_GOON2", 125861142),
+    ("SKIN_THE_GATOR", 1631349714),
+    ("SKIN_GATOR_GOON1", 2845675110),
+    ("SKIN_GATOR_GOON2", 815063004),
+    ("SKIN_GATOR_GOON3", 1200877386),
+    ("SKIN_JERICHO_GOON1", 324955939),
+    ("SKIN_JERICHO_GOON2", 2320973465),
+    ("SKIN_JERICHO_GOON3", 4249882127),
+    ("SKIN_TIMMY", 280023622),
+    ("SKIN_TURKISH_UNDERCOVER", 2887570852),
+    ("SKIN_FRENCH_UNDERCOVER", 162875611),
+    ("SKIN_MIAMICOP1", 3960771053),
+    ("SKIN_MIAMICOP2", 1964884055),
+    ("SKIN_MIAMICOP3", 3950597620),
+    ("SKIN_MIAMICOP4", 3402891131),
+    ("SKIN_NICECOP1", 2358638370),
+    ("SKIN_NICECOP2", 1710641687),
+    ("SKIN_MIAMI_WMWSBP", 1421306584),
+    ("SKIN_MIAMI_WOMYBHJP", 3451796322),
+    ("SKIN_MIAMI_BMWSBP", 3132689396),
+    ("SKIN_MIAMI_BWMTTBS", 618503767),
+    ("SKIN_MIAMI_WMPSWP", 1406840513),
+    ("SKIN_MIAMI_WFWD", 1517085418),
+    ("SKIN_MIAMI_WMBSBS", 3553152570),
+    ("SKIN_MIAMI_BFBSBP", 2765094572),
+    ("SKIN_MIAMI_WFBSBP", 879813437),
+];

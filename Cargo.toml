@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = ["crates/formats", "zartex-core", "zartex-app"]
+
+[profile.release]
+opt-level = 3
